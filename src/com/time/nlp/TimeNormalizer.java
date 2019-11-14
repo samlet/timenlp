@@ -38,6 +38,11 @@ public class TimeNormalizer implements Serializable {
     private String timeBase;
     private String oldTimeBase;
     private static Pattern patterns = null;
+
+    public String getTarget() {
+        return target;
+    }
+
     private String target;
     private TimeUnit[] timeToken = new TimeUnit[0];
 

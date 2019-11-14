@@ -1,0 +1,62 @@
+#!/bin/bash
+. /pi/bin/inc/wait_funcs.sh
+. /pi/bin/inc/matchers.sh
+. /pi/bin/inc/docker_utils.sh
+
+set -e
+
+function start_inventory(){
+	# mysqld: ready for connections.
+	start_docker inventory "$msg_mysql"
+}
+
+function build(){
+    mvn package appassembler:assemble -PcheckstyleSkip -DskipTests
+}
+function dockerize(){
+	docker build . -f run.dockerfile -t samlet/timeprocs:0.1
+}
+function docker_run(){
+	docker run -it --rm -p 25333:25333 samlet/timeprocs:0.1 nlp
+}
+
+# startup 
+if [ $# -lt 1 ]; then	
+	echo "available opts: all, zk, storm, repl, ..."
+else
+	CMD=$1
+	case "$CMD" in
+	"redis")
+		start_docker redis "$msg_redis"
+		;;
+	"inventory")
+		start_inventory
+		;;
+	"app")
+	    target/appassembler/bin/app ${@:1}
+	    ;;
+	"build")
+	    build
+	    dockerize
+	    ;;
+	"docker")
+	    dockerize        
+	    ;;
+	"run")
+	    docker_run
+	    ;;
+	"exec")
+	    mvn exec:java -Dexec.mainClass="com.samlet.bridge.ApplicaEntryPoint"
+	    ;;
+	"all")
+		build
+		dockerize
+		docker_run
+		;;
+	*)
+		# default proc
+		handle_cmd ${@:1}
+		;;
+	esac
+fi
+

@@ -30,6 +30,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -47,14 +48,56 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+				<configuration>
+					<mainClass>com.samlet.bridge.ApplicaEntryPoint</mainClass>
+				</configuration>
+			</plugin>
+
+			<!-- http://www.mojohaus.org/appassembler/appassembler-maven-plugin/usage-program.html -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.10</version>
+				<configuration>
+					<programs>
+						<program>
+							<mainClass>com.samlet.bridge.ApplicaEntryPoint</mainClass>
+							<id>app</id>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
         </plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<repositories>
+        <repository>
+              <id>spring-snapshots</id>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
 		<repository>
 			<id>OSChina Central</id>
 			<url>http://maven.oschina.net/content/groups/public/</url>
 		</repository>
+
 	</repositories>
 
 	<dependencies>
@@ -70,10 +113,30 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.23</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.py4j/py4j -->
+		<dependency>
+			<groupId>net.sf.py4j</groupId>
+			<artifactId>py4j</artifactId>
+			<version>0.10.8.1</version>
+		</dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.2.2</version>
         </dependency>
+
 	</dependencies>
 </project>

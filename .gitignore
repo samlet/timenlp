@@ -1,9 +1,17 @@
-*.classpath
+# Eclipse
+.classpath
 .project
-.settings
-*.prefs
-.svn/entries
-.svn/format
-*.svn-base
-.svn/wc.db
-target
+.settings/
+ 
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+
