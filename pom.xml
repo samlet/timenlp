@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.cn21</groupId>
-	<artifactId>Time-NLP</artifactId>
+	<groupId>ai.sagas</groupId>
+	<artifactId>timenlp</artifactId>
 	<version>1.0.0</version>
-	<name>Time-NLP</name>
+	<name>timenlp</name>
 	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
