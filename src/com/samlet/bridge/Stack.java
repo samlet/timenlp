@@ -1,8 +1,10 @@
 package com.samlet.bridge;
 
+import javax.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 
+@Singleton
 public class Stack {
     private List<String> internalList = new LinkedList<String>();
 

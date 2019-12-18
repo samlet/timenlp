@@ -13,13 +13,9 @@ import static py4j.GatewayServer.*;
 
 public class ApplicaEntryPoint {
 
-    private Stack stack;
     private Injector injector;
 
     public ApplicaEntryPoint() {
-        stack = new Stack();
-        stack.push("Initial Item");
-
         this.injector=Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
@@ -30,7 +26,7 @@ public class ApplicaEntryPoint {
     }
 
     public Stack getStack() {
-        return stack;
+        return injector.getInstance(Stack.class);
     }
     public TimeAnalyst getTimeAnalyst(){
         return injector.getInstance(TimeAnalyst.class);
@@ -46,7 +42,8 @@ public class ApplicaEntryPoint {
                 DEFAULT_CONNECT_TIMEOUT, DEFAULT_READ_TIMEOUT, null,
                 new CallbackClient(DEFAULT_PYTHON_PORT, defaultAddress));
         gatewayServer.start();
-        System.out.println("Gateway Server Started");
+        System.out.println("timenlp servant started");
     }
 
 }
+
